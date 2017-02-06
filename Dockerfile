@@ -21,7 +21,9 @@ zlib1g-dev \
 libmysqlclient18 libmysqlclient-dev libpq5 libpq-dev \
 motion
 
+ADD image/run.sh /run.sh
+RUN chmod +x /run.sh
 ADD image/motion.conf /motion.conf
 RUN mkdir /motion-images
 
-ENTRYPOINT ["/usr/bin/motion", "-c", "/motion.conf"]
+ENTRYPOINT ["/run.sh"]
