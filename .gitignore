@@ -1,1 +1,6 @@
-/motion-capture/target/
+target/
+bin/
+.classpath
+.project
+.settings/
+nbactions.xml
