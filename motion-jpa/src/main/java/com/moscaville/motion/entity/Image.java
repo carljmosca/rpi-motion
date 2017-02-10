@@ -21,7 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -29,11 +28,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "image")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Image.findAll", query = "SELECT i FROM Image i")
-    , @NamedQuery(name = "Image.findById", query = "SELECT i FROM Image i WHERE i.id = :id")
-    , @NamedQuery(name = "Image.findByCreated", query = "SELECT i FROM Image i WHERE i.created = :created")})
+    @NamedQuery(name = "Image.findAll", query = "SELECT i FROM Image i"),
+    @NamedQuery(name = "Image.findById", query = "SELECT i FROM Image i WHERE i.id = :id"),
+    @NamedQuery(name = "Image.findByCreated", query = "SELECT i FROM Image i WHERE i.created = :created"),
+    @NamedQuery(name = "Image.findByImageSource", query = "SELECT i FROM Image i WHERE i.imageSource.id = :id")
+})
 public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,7 +52,7 @@ public class Image implements Serializable {
     private Date created;
     @JoinColumn(name = "source_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private ImageSource sourceId;
+    private ImageSource imageSource;
 
     public Image() {
     }
@@ -91,12 +91,12 @@ public class Image implements Serializable {
         this.created = created;
     }
 
-    public ImageSource getSourceId() {
-        return sourceId;
+    public ImageSource getImageSource() {
+        return imageSource;
     }
 
-    public void setSourceId(ImageSource sourceId) {
-        this.sourceId = sourceId;
+    public void setImageSource(ImageSource sourceId) {
+        this.imageSource = sourceId;
     }
 
     @Override
@@ -119,9 +119,5 @@ public class Image implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "com.moscaville.motion.jpa.Image[ id=" + id + " ]";
-    }
     
 }

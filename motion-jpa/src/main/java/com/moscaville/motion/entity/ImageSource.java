@@ -18,7 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -27,7 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "image_source")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ImageSource.findAll", query = "SELECT i FROM ImageSource i")
     , @NamedQuery(name = "ImageSource.findById", query = "SELECT i FROM ImageSource i WHERE i.id = :id")
@@ -43,7 +41,7 @@ public class ImageSource implements Serializable {
     @Basic(optional = false)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sourceId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "imageSource")
     private Collection<Image> imageCollection;
 
     public ImageSource() {
@@ -103,9 +101,5 @@ public class ImageSource implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "com.moscaville.motion.jpa.ImageSource[ id=" + id + " ]";
-    }
     
 }

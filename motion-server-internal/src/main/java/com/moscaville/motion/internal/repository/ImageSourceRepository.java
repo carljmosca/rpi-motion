@@ -8,6 +8,7 @@ package com.moscaville.motion.internal.repository;
 import com.moscaville.motion.entity.ImageSource;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 /**
  *
@@ -15,5 +16,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource(collectionResourceRel = "imagesources", path = "imagesources")
 public interface ImageSourceRepository extends PagingAndSortingRepository<ImageSource, Integer> {
-    
+
+    @Override
+    @RestResource(exported = false)
+    public void delete(ImageSource t);
 }
